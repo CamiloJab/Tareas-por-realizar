@@ -8,7 +8,7 @@ import { CreateTodoButton } from './CreateTodoButton';
 // import './App.css';
 
 const todos = [
-  { text: 'Aprender HTML', completed: false },
+  { text: 'Aprender HTML', completed: true },
   { text: 'Aprender CSS', completed: false },
   { text: 'Aprender JS', completed: false },
   { text: 'Tomar el curso de intro a React', completed: false },
@@ -31,7 +31,7 @@ function App() {
         ))}
       </TodoList>
 
-      <CreateTodoButton />
+      <CreateTodoButton href="#" style="--clr:#ff22bb;--i;2;"><span>Button</span></CreateTodoButton>
     </React.Fragment>
   );
 }

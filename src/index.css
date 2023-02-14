@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+
 body {
+  background-image: url(./Images/BackGround.jpg);
   margin: 0;
   padding: 0;
   background: #F2F4F5;
   color: #1E1E1F;
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-family: 'Kalam', cursive;
 }
 
 #root {
