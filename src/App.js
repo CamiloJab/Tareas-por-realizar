@@ -22,8 +22,8 @@ function App() {
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
 
-
-  let searchedTodos = [];
+// filtro de busqueda de TODOs linea 26 al 35, para que aparezcan en el input (todoSearch)
+  let searchedTodos = []; 
 
   if(!searchValue.length >= 1){
     searchedTodos = todos;
@@ -34,6 +34,15 @@ function App() {
     return todoText.includes(searchText);
    })
   }
+
+  // filtro de busqueda de TODOs linea 26 al 35
+    const completeTodos = (text) => {
+    const todoIndex = todos.findIndex(todo => todo.text === text);// se examina cual tiene el mismo texto y obtendremos la posicion
+
+    const newTodos = [...todos];
+    newTodos[todoIndex].completed= true;
+    setTodos(newTodos);
+  };
 
   return (
     <React.Fragment> {/*React necesita una etiqueta que contenga todo, para eso se usa React.Fragment, no repercute en en el codigo en general*/}
@@ -52,6 +61,7 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodos(todo.text)}
           />
         ))}
       </TodoList>
