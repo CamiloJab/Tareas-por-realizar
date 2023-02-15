@@ -2,13 +2,6 @@ import React from 'react';
 import './TodoItem.css';
 
 function TodoItem(props) {
-  const onComplete = () => {
-    alert('Ya completaste todo el todo ' + props.text);
-  }
-
-  const onDelete = () => {
-    alert('Borraste satsifactoriamente el ' + props.text);
-  }
 
   return (
     <li className="TodoItem">
@@ -23,7 +16,7 @@ function TodoItem(props) {
       </p>
       <span 
         className="Icon Icon-delete"
-        onClick={onDelete}>
+        onClick={props.onDelete}>
         X
       </span>
     </li>
