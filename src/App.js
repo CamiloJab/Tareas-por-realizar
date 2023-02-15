@@ -7,19 +7,31 @@ import { TodoItem } from './TodoItem';
 import { CreateTodoButton } from './CreateTodoButton';
 // import './App.css';
 
-const todos = [
+const dafaultTodos = [
   { text: 'Aprender HTML', completed: true },
   { text: 'Aprender CSS', completed: false },
   { text: 'Aprender JS', completed: false },
-  { text: 'Tomar el curso de intro a React', completed: false },
+  { text: 'Tomar el curso de intro a React', completed: true },
   { text: 'Certificarse en React', completed: false },
 ];
 
 function App() {
+  const [todos, setTodos] = React.useState(dafaultTodos);
+  const [searchValue, setSearchValue] = React.useState('');
+
+  const completedTodos = todos.filter(todo => !!todo.completed).length;
+  const totalTodos = todos.length;
+
   return (
     <React.Fragment> {/*React necesita una etiqueta que contenga todo, para eso se usa React.Fragment, no repercute en en el codigo en general*/}
-      <TodoCounter />
-      <TodoSearch />
+      <TodoCounter 
+      total={totalTodos}
+      completed={completedTodos}
+      />
+      <TodoSearch 
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
 
       <TodoList>
         {todos.map(todo => (
