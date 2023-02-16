@@ -31,7 +31,7 @@
 }
 
 body {
-  background-image: url(./Images/BackGround.jpg);
+  background-image: url(../Images/BackGround.jpg);
 }
 
 @keyframes animate {
