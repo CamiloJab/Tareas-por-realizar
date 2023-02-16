@@ -12,20 +12,41 @@ import { AppUI } from './AppUI';
 // { text: 'Certificarse en React', completed: false },
 //];
 
-function App() {
-  const localStorageTodos = localStorage.getItem('TODOS_V1');
-  let parsedTodos; // para los nuevos usuarios
+// nuestro custom hook sobre localstorage
+function useLocalStorage (itemName, initialValue){
 
-  if(!localStorageTodos){ // if !en el caso que el usuario no tenga ninguna informacion almacenada, el se para lo contrario
-    localStorage.setItem('TODOS_V1', JSON.stringify([]));
-    parsedTodos = [];
+  //logica para localstorage 
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem; // para los nuevos usuarios
+
+
+  if(!localStorageItem){ // if !en el caso que el usuario no tenga ninguna informacion almacenada, el se para lo contrario
+    localStorage.setItem(itemName, JSON.stringify([initialValue]));
+    parsedItem = [initialValue];
   } else {
-    parsedTodos = JSON.parse(localStorageTodos);
+    parsedItem = JSON.parse(localStorageItem);
   }
 
-  const [todos, setTodos] = React.useState(parsedTodos);
-  const [searchValue, setSearchValue] = React.useState('');
+  const [item, setItem] = React.useState(parsedItem);
 
+  //logica para guardar estados y en localStorage
+  const saveItem = (newItem) => {
+  const stringifiedItem = JSON.stringify(newItem);
+
+  localStorage.setItem(itemName, stringifiedItem);
+  setItem(newItem);
+  };
+
+    return [
+      item,
+      saveItem,
+    ];
+}
+
+function App() {
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  const [searchValue, setSearchValue] = React.useState('');
+  
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
 
@@ -42,12 +63,6 @@ function App() {
    })
   }
 
-  //logica para guardar estados y en localStorage
-const saveTodos = (newTodos) => {
-  const stringifiedTodos = JSON.stringify(newTodos);
-  localStorage.setItem('TODOS_V1', stringifiedTodos);
-  setTodos(newTodos);
-};
 
   // filtro de busqueda de TODOs linea 26 al 35
     const completeTodo = (text) => {
